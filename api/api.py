@@ -1,14 +1,15 @@
 import flask
 from flask import request   # wird benötigt, um die HTTP-Parameter abzufragen
 from flask import jsonify   # übersetzt python-dicts in json
-import sqlite3
 
 
 app = flask.Flask(__name__)
 app.config["DEBUG"] = True  # Zeigt Fehlerinformationen im Browser, statt nur einer generischen Error-Message
 
+
 @app.route('/', methods=['GET'])
 def home():
+
     return flask.send_file('index.html')
 
 @app.route('/freieTische', methods=['GET'])
@@ -27,8 +28,6 @@ def freie_tische():
     
     return wunschzeitpunkt, 200
     
-    
-    
 
-
-app.run()
+if __name__ == "__main__":
+    app.run()
