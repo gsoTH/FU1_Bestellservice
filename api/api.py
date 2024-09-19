@@ -1,23 +1,20 @@
-import flask
-from flask import request   # wird benötigt, um die HTTP-Parameter abzufragen
-from flask import jsonify   # übersetzt python-dicts in json
+from fastapi import FastAPI, Response, status
+from fastapi.responses import FileResponse
 
 
-app = flask.Flask(__name__)
-app.config["DEBUG"] = True  # Zeigt Fehlerinformationen im Browser, statt nur einer generischen Error-Message
+app = FastAPI()
 
 
-@app.route('/', methods=['GET'])
+@app.get("/")
 def home():
+    return FileResponse('index.html')
 
-    return flask.send_file('index.html')
 
-@app.route('/freieTische', methods=['GET'])
-def freie_tische():
-    if 'zeitpunkt' in request.args:
-        wunschzeitpunkt = str(request.args['zeitpunkt'])
-    else:
-        return "Error: bitte Zeipunkt angeben.", 400
+@app.get('/freieTische', status_code=200)
+def freie_tische(zeitpunkt: str, response: Response):
+    if zeitpunkt is None:
+        response.status_code = 400
+        return "Fehler: Bitte Zeipunkt angeben."
     
     # TODO wunschzeitpunkt auf nächste halbe Stunde aufrunden (18:00 --> 18:30)
     # TODO SQLite Datenbank erzeugen (create_buchungssystem.sql) und einbinden
@@ -25,9 +22,5 @@ def freie_tische():
     # TODO Ergebnis der Abfrage als JSON zurückgeben
     # TODO Überprüfen, ob Parameter dem Muster yyyy-mm-dd hh:mm entspricht
     
+    return zeitpunkt
     
-    return wunschzeitpunkt, 200
-    
-
-if __name__ == "__main__":
-    app.run()
