@@ -12,10 +12,6 @@ def home():
 
 @app.get('/freieTische', status_code=200)
 def freie_tische(zeitpunkt: str, response: Response):
-    if zeitpunkt is None:
-        response.status_code = 400
-        return "Fehler: Bitte Zeipunkt angeben."
-    
     # TODO wunschzeitpunkt auf nächste halbe Stunde aufrunden (18:00 --> 18:30)
     # TODO SQLite Datenbank erzeugen (create_buchungssystem.sql) und einbinden
     # TODO Abfrage an SQLite Datenbank absetzen
