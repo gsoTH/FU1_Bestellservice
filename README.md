@@ -8,6 +8,11 @@
  - Keine Authentifizierung
  - Kein Frontend
 
+:clipboard: **arbeitsauftrag**
+ - Planen Sie die restlichten Nachrichtenflüsse, indem Sie geeignete UML-Sequenzdiagramme erzeugen.
+ - Identifizieren Sie Wissenslücken (und sammeln Sie diese an geeigneter Stelle)
+ - Beginnen Sie mit der Implementierung
+
 ## Auszug aus dem Lastenheft
 ### Beschreibung des Ist-Zustands
 Ein Pizza-Restaurant hat bisher sein Angebot über eine Webseite veröffentlicht und Bestellungen via Telefon entgegengenommen. Ein geeignetes Beispiel ist im Order [api](api/) abgelegt.
