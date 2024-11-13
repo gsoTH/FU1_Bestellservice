@@ -1,8 +1,7 @@
 -----------------------------------------------------------------------------
 -- Erzeugt eine SQLite Testdatenbank.
 -- 
--- In Flask ist es üblich, diese Datei schema.sql zu nennen.
--- Man könnte sie auch create_Buchungssystem.sql nennen.
+-- Flask üblich wäre, diese Datei schema.sql zu nennen.
 -- Siehe auch: https://flask.palletsprojects.com/en/2.3.x/tutorial/database/
 --
 -----------------------------------------------------------------------------
