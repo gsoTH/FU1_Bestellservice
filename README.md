@@ -9,9 +9,11 @@
  - Kein Frontend
 
 ## Auszug aus dem Lastenheft
-Ein Pizza-Restaurant hat bisher sein Angebot über eine Webseite veröffentlicht und Bestellungen via Telefon entgegengenommen. Um einen größeren Marktanteil zu erreichen, sollen diese Bestellungen in Zukunft direkt über die Webseite (oder durch direkten Zugriff auf die API durch Drittanbieter-Webseiten) erfolgen.
+### Beschreibung des Ist-Zustands
+Ein Pizza-Restaurant hat bisher sein Angebot über eine Webseite veröffentlicht und Bestellungen via Telefon entgegengenommen. Ein geeignetes Beispiel ist im Order [api](api/) abgelegt.
 
 ### Beschreibung des Soll-Zustands
+Um einen größeren Marktanteil zu erreichen, sollen diese Bestellungen in Zukunft direkt über die Webseite (oder durch direkten Zugriff auf die API durch Drittanbieter-Webseiten) erfolgen.
 Die Kunden sollen über das aktuelle Menu abfragen können und anschließend die Bestellung übermitteln. Zu jeder Bestellung soll eine Telefonnummer und ein Name übermittelt werden. Der Kunde erhält anschließend den Preis der Bestellung und eine Bestellnummer.
 
 Vor Ort benötigen die Mitarbeiter eine Übersicht aller aktuellen Bestellungen. Der Einfachheit halber gehen wir davon aus, dass jede Bestellung innerhalb einer Stunde erledigt ist. Es müssen also nur Bestellungen angezeigt werden, die innerhalb der letzten 60 Minuten eingegangen sind.
