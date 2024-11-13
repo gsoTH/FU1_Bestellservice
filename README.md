@@ -6,7 +6,7 @@
 
 :no_entry: Abgrenzungen:
  - Keine Authentifizierung
- - Kein Frontend
+ - Kein Frontend (FU1 interessiert sich nur für JSON ;) )
 
 :clipboard: **Arbeitsauftrag:**
  - Planen Sie die restlichten Nachrichtenflüsse, indem Sie geeignete UML-Sequenzdiagramme erzeugen.
