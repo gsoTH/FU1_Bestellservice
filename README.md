@@ -8,7 +8,7 @@
  - Keine Authentifizierung
  - Kein Frontend
 
-:clipboard: **arbeitsauftrag**
+:clipboard: **Arbeitsauftrag:**
  - Planen Sie die restlichten Nachrichtenflüsse, indem Sie geeignete UML-Sequenzdiagramme erzeugen.
  - Identifizieren Sie Wissenslücken (und sammeln Sie diese an geeigneter Stelle)
  - Beginnen Sie mit der Implementierung
