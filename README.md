@@ -1,31 +1,23 @@
-# Tischreservierung
-Erste Schritte für die Entwicklung einer API mit Flask. [Flask](https://flask.palletsprojects.com/en/2.3.x/) ist ein Python-Webframework für das Backend, das HTTP-Requests zu Python-Funktionen zuordnet.
+# Bestellservice
 
-Nützliche Links:
-- [Erste Schritte mit Flask](https://programminghistorian.org/en/lessons/creating-apis-with-python-and-flask#implementing-our-api)
+:dart: Ziele:
+ - Planung der Nachrichtenflüsse mit UML-Sequenzdiagrammen
+ - Implementierung und Test mit [FastAPI](https://fastapi.tiangolo.com/)
 
+:no_entry: Abgrenzungen:
+ - Keine Authentifizierung
+ - Kein Frontend
 
 ## Auszug aus dem Lastenheft
-Ein Restaurant möchte ein Buchungssystem für die Reservierung von Tischen einführen. Das Restaurant hat eine Filiale mit 20 Tischen. 
+Ein Pizza-Restaurant hat bisher sein Angebot über eine Webseite veröffentlicht und Bestellungen via Telefon entgegengenommen. Um einen größeren Marktanteil zu erreichen, sollen diese Bestellungen in Zukunft direkt über die Webseite (oder durch direkten Zugriff auf die API durch Drittanbieter-Webseiten) erfolgen.
 
-### Beschreibung des Ist-Zustands
-Derzeit werden Reservierungen via Telefon geregelt. Kunden rufen an und geben einen gewünschten Zeitpunkt und ggf. eine Personenzahl an. Der Kellner überprüft, welche Tische für den jeweiligen Zeitpunkt in Frage kommen. Falls genügend Tische zur Verfügung stehen, wird die Reservierung mit den betroffenen Tischnummern und einem Namen, ggf. mit einer Telefnonummer in einen großen Terminplan eingetragen. 
+### Beschreibung des Soll-Zustands
+Die Kunden sollen über das aktuelle Menu abfragen können und anschließend die Bestellung übermitteln. Zu jeder Bestellung soll eine Telefonnummer und ein Name übermittelt werden. Der Kunde erhält anschließend den Preis der Bestellung und eine Bestellnummer.
 
-Es hat sich als praktikabel gezeigt, dass eine Reservierung nur zur halben Stunde (z.B. 16:30 Uhr, 17:30 Uhr) angeboten werden und jeweils für eine Stunde gelten.
-
-In einigen Fällen kommt es vor, dass Reservierungen telefonisch wieder storniert werden. 
-
-### Beschreibung des Soll-Konzepts
-Die Reservierung soll zukünftig nur noch über ein Buchungssystem erfolgen. Die Kunden sollen über unsere Webseite die freien Tische zu einem gewünschten Termin anzeigen können. Anschließend sollen sie die Tische reservieren und die Reservierung ggf. stornieren können. 
-
-Vor Ort benötigen die Kellner nur Einblick über alle Reservierungen des aktuellen Tages, um Gäste zu ihren Tischen zu leiten.
-
-Personenbezogene Daten sollen vorerst nicht erhoben werden.
-
-Das System soll zukünftig erweiterbar sein, um z.B. mehrere Filialen einbinden zu können.
+Vor Ort benötigen die Mitarbeiter eine Übersicht aller aktuellen Bestellungen. Der Einfachheit halber gehen wir davon aus, dass jede Bestellung innerhalb einer Stunde erledigt ist. Es müssen also nur Bestellungen angezeigt werden, die innerhalb der letzten 60 Minuten eingegangen sind.
 
 ## Fachkonzept
-Ausgehend von der Situationsbeschreibung wurde die Situation vertieft analysiert. Ergebnis waren mehrere UML-Diagramme.
+Ausgehend von der Situationsbeschreibung wurden bereits erste UML-Diagrame erstellt.
 
 ### Anwendungsfalldiagramm
 Das nachfolgende UML-Use-Case Diagramm zeigt die Anwendungsfälle, die das neue System zur Verfügung stellen soll.
@@ -33,7 +25,13 @@ Das nachfolgende UML-Use-Case Diagramm zeigt die Anwendungsfälle, die das neue 
 ![UML-UseCase Diagramm](diagramme/UML-UseCase.drawio.svg)
 
 ### Sequenzdiagramm
-Die Abfolge der Nachrichtenflüsse soll in einem UML-Sequenzdiagramm dargestellt werden:
-![UML-Sequence Diagramm](diagramme/UML-Sequence.drawio.svg)
+Die Abfolge der Nachrichtenflüsse soll in UML-Sequenzdiagrammen dargestellt werden. Für jeden Anwendungsfall soll ein Sequenzdiagramm erstellt werden. Zur Modellierung wurde der [Live-Editor](https://mermaid.live) von [Mermaid.js](https://mermaid.js.org/syntax/sequenceDiagram.html#sequence-diagrams) verwendet.
+
+#### 1. Menu abfragen
+[![](https://mermaid.ink/img/pako:eNplUV1PwjAU_SvNTUw0DtwYhdEHEz-IaOQjgSezxJTtMqqsw65VgfDPfOOP2a0YTexTc849536cHSRFisCgxDeDMsFbwTPF81gS-9ZcaZGINZea3KwESv0fv5rc_wdvr4dTh56ccKMLafI5Koc4o8bl5bmVMnLXn5GLHKVxrMUqqjJgJEP9XFGnZ46s0EbjrFELf0lGFJZmpf861CWJQq7x-aUs5C9n9W6EP70ZeRSlRpKiIu-oFoevbM4VSjLky9UWhUbpDWazScv3ndFoPOsTJbKlJsWC_PgNhNV_CJUSFJI8TMcjsjXq8JW8ZpjhHGUzluBBjirnIrVX31VuMegl5hgDs98UF7xaBWK5t6XV8aYbmQDTyqAHZp3ajY4hAVvwVWlRTIUu1NAlWQfqgc0B2A4-gQUhbYZB1PZpQIOw0215sAHW6TXDKOxSvxdQ2uqG7b0H26Kwpn4z6kUhbffCVhRFlLZrs6eac1OowmTLY_f9N9IKtk0?type=png)](https://mermaid.live/edit#pako:eNplUV1PwjAU_SvNTUw0DtwYhdEHEz-IaOQjgSezxJTtMqqsw65VgfDPfOOP2a0YTexTc849536cHSRFisCgxDeDMsFbwTPF81gS-9ZcaZGINZea3KwESv0fv5rc_wdvr4dTh56ccKMLafI5Koc4o8bl5bmVMnLXn5GLHKVxrMUqqjJgJEP9XFGnZ46s0EbjrFELf0lGFJZmpf861CWJQq7x-aUs5C9n9W6EP70ZeRSlRpKiIu-oFoevbM4VSjLky9UWhUbpDWazScv3ndFoPOsTJbKlJsWC_PgNhNV_CJUSFJI8TMcjsjXq8JW8ZpjhHGUzluBBjirnIrVX31VuMegl5hgDs98UF7xaBWK5t6XV8aYbmQDTyqAHZp3ajY4hAVvwVWlRTIUu1NAlWQfqgc0B2A4-gQUhbYZB1PZpQIOw0215sAHW6TXDKOxSvxdQ2uqG7b0H26Kwpn4z6kUhbffCVhRFlLZrs6eac1OowmTLY_f9N9IKtk0)
+
+#### 2. Bestellung aufgeben
+#### 3. Bestellungen einsehen
+
 
 
