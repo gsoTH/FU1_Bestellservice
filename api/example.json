@@ -1,0 +1,16 @@
+{
+    "pizzen": [
+        {
+            "nummer": 1, 
+            "name": "Mario",
+            "toppings": "Käse, Tomatensauce",
+            "preis": 9.5
+        },
+        {
+            "nummer": 2, 
+            "name": "Luigi",
+            "toppings": "Käse, Spinat",
+            "preis": 12.5
+        }    
+    ]
+}
