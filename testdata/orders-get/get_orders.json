@@ -1,0 +1,42 @@
+{
+  "orders": [
+    {
+      "order_number": "456",
+      "timestamp": "2024-11-21 17:05:33",
+      "customer_name": "Max Mustermann",
+      "phone_number": "+49 170 1234567",
+      "total": 56.5,
+      "items": [
+        {
+          "pizza_id": 1,
+          "price": 9.5,
+          "quantity": 2
+        },
+        {
+          "pizza_id": 2,
+          "price": 12.5,
+          "quantity": 3
+        }
+      ]
+    },
+    {
+      "order_number": "457",
+      "timestamp": "2024-11-21 17:23:59",
+      "customer_name": "Maria Mustermann",
+      "phone_number": "+49 160 1234567",
+      "total": 43.0,
+      "items": [
+        {
+          "pizza_id": 1,
+          "price": 9.5,
+          "quantity": 2
+        },
+        {
+          "pizza_id": 2,
+          "price": 12.5,
+          "quantity": 2
+        }
+      ]
+    }
+  ]
+}

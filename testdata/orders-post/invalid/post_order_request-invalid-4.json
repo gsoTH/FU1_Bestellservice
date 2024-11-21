@@ -1,0 +1,14 @@
+{
+  "customer_name": "Max Mustermann",
+  "phone_number": "+49 170 1234567",
+  "items": [
+    {
+      "pizza_id": 999,
+      "quantity": 2
+    },
+    {
+      "pizza_id": 2,
+      "quantity": 3
+    }
+  ]
+}
