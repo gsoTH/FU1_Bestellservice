@@ -3,8 +3,8 @@
   "phone_number": "+49 170 1234567",
   "items": [
     {
-      "pizza_id": 999,
-      "quantity": 2
+      "pizza_id": 1,
+      "quantity": 0
     },
     {
       "pizza_id": 2,
