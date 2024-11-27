@@ -30,3 +30,11 @@ INSERT INTO pizza VALUES
 	(1, 'Mario', 'Käse, Tomatensauce', 9.5)
 ,	(2,	'Luigi', 'Käse, Spinat', 12.5)
 ;
+
+INSERT INTO orders VALUES
+	(1, 'Donatello', '0800-100')
+;
+
+INSERT INTO items VALUES
+	(1, 2, 3)
+;
