@@ -1,18 +1,26 @@
-from sqlmodel import Field, Session, SQLModel, create_engine, select
+from sqlmodel import Field, Session, SQLModel, create_engine, select, Relationship
+
+class Item(SQLModel, table=True):
+#   order_id: int = Field(default=None, foreign_key="tabelle.spalte", primary_key=True)
+    order_id: int = Field(default=None, foreign_key="orders.id", primary_key=True)
+    pizza_id: int = Field(default=None, foreign_key="pizza.id", primary_key=True)
+    amount: int
+
 
 class Pizza(SQLModel, table=True):
-    id:  int | None = Field(primary_key=True)
+    id:  int = Field(primary_key=True)
     name: str
     toppings: str
     price: float
 
+    ordered: list["Order"] = Relationship(back_populates="items", link_model=Item)
 
 class Order(SQLModel, table=True):
-    id: int | None = Field(primary_key=True)
+    id: int = Field(primary_key=True)
     name: str
     phone: str
 
-#class Item(SQLModel, table=True):
+    items: list[Item] = Relationship(back_populates="ordered", link_model=Item)
 
 
 
