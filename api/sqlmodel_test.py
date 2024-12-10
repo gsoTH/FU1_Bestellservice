@@ -4,7 +4,7 @@ class Item(SQLModel, table=True):
 #   order_id: int = Field(default=None, foreign_key="tabelle.spalte", primary_key=True)
     order_id: int = Field(default=None, foreign_key="orders.id", primary_key=True)
     pizza_id: int = Field(default=None, foreign_key="pizza.id", primary_key=True)
-    amount: int
+    amount: int = Field(default=None)
 
 
 class Pizza(SQLModel, table=True):
@@ -13,20 +13,23 @@ class Pizza(SQLModel, table=True):
     toppings: str
     price: float
 
-    ordered: list["Order"] = Relationship(back_populates="items", link_model=Item)
+    #ordered: list["Order"] = Relationship(back_populates="items", link_model=Item)
 
 class Order(SQLModel, table=True):
     id: int = Field(primary_key=True)
-    name: str
-    phone: str
+    name: str | None
+    phone: str | None
 
-    items: list[Item] = Relationship(back_populates="ordered", link_model=Item)
+    #items: list[Item] = Relationship(link_model=Item)   #Relationship --> Kein DB-Attribut!
 
 
 
 sqlite_file_name = "../testdata/test_database.sqlite"
 sqlite_url = f"sqlite:///{sqlite_file_name}"
 engine = create_engine(sqlite_url, echo=True) #echo=True will show SQL output.
+
+def create_db_and_tables():
+    SQLModel.metadata.create_all(engine)
 
 def select_pizza():
     with Session(engine) as session:
@@ -36,4 +39,5 @@ def select_pizza():
             print(pizza)
 
 if __name__ == "__main__":
+    create_db_and_tables()
     select_pizza()

@@ -1,6 +1,30 @@
 from fastapi import FastAPI
 from fastapi.responses import FileResponse
 from pydantic import BaseModel, Field
+from sqlmodel import Session, SQLModel, create_engine, select
+
+# Definiere das SQLite-Datenbankmodell
+class Pizza(SQLModel, table=True):
+    id: int = Field(default=None, primary_key=True)
+    name: str
+    price: float
+
+class Order(SQLModel, table=True):
+    id: int = Field(default=None, primary_key=True)
+    customer_name: str
+    phone_number: str
+    total: float
+
+# Erstelle eine Datenbankverbindung
+DATABASE_URL = "sqlite:///./test.db"  # Lokale SQLite-Datei
+engine = create_engine(DATABASE_URL, echo=True)
+
+# Erstelle die Datenbanktabellen
+SQLModel.metadata.create_all(bind=engine)
+
+def get_session():
+    with Session(engine) as session:
+        yield session
 
 
 app = FastAPI()
@@ -33,11 +57,26 @@ def get_menu():
     return FileResponse('testdata/get_menue.json')
 
 @app.post("/order/", status_code=201)
-def post_order_request(order: OrderRequest) -> OrderResponse:
-    exampleOrderResponse =  OrderResponse(  order_number=42,
-                                            customer_name=order.customer_name, 
-                                            phone_number = order.phone_number, 
-                                            total = 3.5,
-                                            items = order.items
-                                            )
-    return exampleOrderResponse
+def post_order_request(order: OrderRequest, session: Session = get_session()) -> OrderResponse:
+    # Berechne den Gesamtpreis für die Bestellung
+    pizzas = session.exec(select(Pizza).where(Pizza.id.in_(order.items))).all()
+    total = sum(pizza.price for pizza in pizzas)
+
+    db_order = Order(
+        customer_name=order.customer_name,
+        phone_number=order.phone_number,
+        total=total,
+    )
+
+    session.add(db_order)
+    session.commit()
+    session.refresh(db_order)
+
+    # Füge die bestellten Pizzen zur Bestellung hinzu
+    db_order_items = []
+    for pizza in pizzas:
+        db_order_items.append({"pizza_id": pizza.id, "order_id": db_order.id})
+    
+    session.commit()
+
+    return db_order
